@@ -178,6 +178,25 @@ struct HTMLComponent: ExpressibleByStringLiteral, ExpressibleByStringInterpolati
     }
  }
 
-let text: HTMLComponent = "You should follow me on Twitter \(twitter: "twostraws"), or you can email me at \(email: "paul@hackingwithswift.com")."
 
-print(text)
+// Mark: Dynamic Callable
+
+@dynamicCallable
+struct RandomNumberGenerator {
+    func dynamicallyCall (withKeywordArguments args: KeyValuePairs<String, Int>) -> Double {
+        let numberOfZeroes = Double(args.first?.value ?? 0)
+        let maximum = pow(10, numberOfZeroes)
+        return Double.random(in: 0...maximum)
+    }
+}
+
+let random = RandomNumberGenerator()
+let result = random(0)
+
+
+enum PasswordError: Error {
+    case short
+    case obvious
+    case simple
+}
+
